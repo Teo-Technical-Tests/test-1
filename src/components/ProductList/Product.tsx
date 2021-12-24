@@ -1,5 +1,5 @@
-import { useState } from "react"
 import { getImage } from "../../shared/helpers"
+import useQuantityInput from "../../shared/hooks/useQuantityInput"
 
 interface Props {
 	name: string
@@ -9,10 +9,7 @@ interface Props {
 }
 
 const Product = ({ name, price, image, id }: Props) => {
-	const [quantity, setQuantity] = useState(0)
-
-	const increaseQuantity = (): void => setQuantity(prevQuantity => prevQuantity + 1)
-	const decreaseQuantity = (): void => setQuantity(prevQuantity => prevQuantity - 1)
+	const [quantity, increaseQuantity, decreaseQuantity] = useQuantityInput()
 
 	return (
 		<li className='product row'>
