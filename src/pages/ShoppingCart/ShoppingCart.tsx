@@ -1,10 +1,11 @@
 import OrderSummary from "../../components/OrderSummary/OrderSummary"
 import ProductList from "../../components/ProductList/ProductList"
+import products from "../../shared/constants/fakeapi"
 
 const ShoppingCart = () => {
 	return (
 		<>
-			<ProductList />
+			<ProductList products={products} />
 			<OrderSummary />
 		</>
 	)
