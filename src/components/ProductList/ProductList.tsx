@@ -1,8 +1,12 @@
-import products from "../../shared/constants/fakeapi"
+import { ProductType } from "../../shared/types"
 import TableBody from "./TableBody"
 import TableHead from "./TableHead"
 
-const ProductList = () => {
+interface Props {
+	products: ProductType[]
+}
+
+const ProductList = ({ products }: Props) => {
 	return (
 		<section className='products'>
 			<h1 className='main'>Shopping cart</h1>

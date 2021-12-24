@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { getImage } from "../../shared/helpers"
 
 interface Props {
@@ -8,6 +9,11 @@ interface Props {
 }
 
 const Product = ({ name, price, image, id }: Props) => {
+	const [quantity, setQuantity] = useState(0)
+
+	const increaseQuantity = (): void => setQuantity(prevQuantity => prevQuantity + 1)
+	const decreaseQuantity = (): void => setQuantity(prevQuantity => prevQuantity - 1)
+
 	return (
 		<li className='product row'>
 			<div className='col-product'>
@@ -20,16 +26,20 @@ const Product = ({ name, price, image, id }: Props) => {
 				</figure>
 			</div>
 			<div className='col-quantity'>
-				<button className='count'>-</button>
-				<input type='text' className='product-quantity' value={price} />
-				<button className='count'>+</button>
+				<button className='count' onClick={decreaseQuantity}>
+					-
+				</button>
+				<input type='text' className='product-quantity' value={quantity} />
+				<button className='count' onClick={increaseQuantity}>
+					+
+				</button>
 			</div>
 			<div className='col-price'>
 				<span className='product-price'>{price}</span>
 				<span className='product-currency currency'>€</span>
 			</div>
 			<div className='col-total'>
-				<span className='product-price'>60</span>
+				<span className='product-price'>{price * quantity}</span>
 				<span className='product-currency currency'>€</span>
 			</div>
 		</li>
