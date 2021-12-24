@@ -1,3 +1,4 @@
+import { productCodes } from "."
 import { ProductType } from "../types"
 const products = [
 	{
@@ -22,4 +23,4 @@ const products = [
 
 export default products
 
-export const getProduct = (code: string): ProductType | null => products.find(p => p.id === code) || null
+export const getProduct = (code: string): ProductType | null => products.find(p => p.id === productCodes[code]) || null

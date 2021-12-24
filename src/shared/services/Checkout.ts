@@ -1,5 +1,6 @@
 import { ProductType } from "../types"
 import { getProduct } from "../constants/fakeapi"
+import { productCodes } from "../constants"
 
 interface ProductInCart extends ProductType {
 	quantity: number
@@ -11,35 +12,44 @@ class Checkout {
 
 	//utils
 	private addToCart(product: ProductType) {
-		const prod = this.getItemFromCart(product.id)
+		const productFound = this.getItemFromCart(product.id)
 
-		if (prod) {
-			prod.quantity++
-			prod.subtotal = prod.price * prod.quantity
+		if (productFound) {
+			productFound.quantity++
+			productFound.subtotal = productFound.price * productFound.quantity
 		} else {
 			this.cart.push({ ...product, quantity: 1, subtotal: product.price })
 		}
 	}
+	private removeFromCart(code: string) {
+		const productFound = this.getItemFromCart(code)
 
+		if (productFound) {
+			productFound.quantity--
+			productFound.subtotal = productFound.price * productFound.quantity
+		} else {
+			this.cart = this.cart.filter(p => p.id !== code)
+		}
+	}
 	private getItemFromCart(code: string): ProductInCart | null {
-		return this.cart.find(p => p.id === code) || null
+		return this.cart.find(p => p.id === productCodes[code]) || null
 	}
 
 	//TODO scale for Type of discount instead of item
 	//Discounts:
 	private hasShirtDiscount(): boolean {
-		const shirts = this.getItemFromCart("X7R2OPX")
+		const shirts = this.getItemFromCart("TSHIRT")
 		if (!shirts) return false
 		else return shirts.quantity >= 3
 	}
 	private hasMugDiscount(): boolean {
-		const mugs = this.getItemFromCart("X2G2OPZ")
+		const mugs = this.getItemFromCart("MUG")
 		if (!mugs) return false
 		else return mugs.quantity % 2 === 0
 	}
 
 	private applyShirtDiscount(): void {
-		const shirts = this.getItemFromCart("X7R2OPX")
+		const shirts = this.getItemFromCart("TSHIRT")
 
 		if (shirts && this.hasShirtDiscount()) {
 			shirts.subtotal *= 0.95
@@ -49,7 +59,7 @@ class Checkout {
 	}
 
 	private applyMugDiscount(): void {
-		const mugs = this.getItemFromCart("X2G2OPZ")
+		const mugs = this.getItemFromCart("MUG")
 
 		if (mugs && this.hasMugDiscount()) {
 			const discountQuantity = Math.floor(mugs.quantity / 2)
