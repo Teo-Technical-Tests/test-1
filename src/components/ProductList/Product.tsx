@@ -1,5 +1,6 @@
+import { useState } from "react"
 import { getImage } from "../../shared/helpers"
-import useQuantityInput from "../../shared/hooks/useQuantityInput"
+import useQuantityInput from "../../hooks/useQuantityInput"
 
 interface Props {
 	name: string
