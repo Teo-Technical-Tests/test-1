@@ -1,16 +1,9 @@
-import { useState } from "react"
+import { ProductType } from "../../shared/types"
 import { getImage } from "../../shared/helpers"
 import useQuantityInput from "../../hooks/useQuantityInput"
 
-interface Props {
-	name: string
-	price: number
-	image: string
-	id: string
-}
-
-const Product = ({ name, price, image, id }: Props) => {
-	const [quantity, increaseQuantity, decreaseQuantity] = useQuantityInput()
+const Product = ({ name, price, image, id }: ProductType) => {
+	const [quantity, changeQuantityBy] = useQuantityInput(0)
 
 	return (
 		<li className='product row'>
@@ -24,11 +17,17 @@ const Product = ({ name, price, image, id }: Props) => {
 				</figure>
 			</div>
 			<div className='col-quantity'>
-				<button className='count' onClick={decreaseQuantity}>
+				<button className='count' onClick={() => changeQuantityBy(-1)}>
 					-
 				</button>
-				<input type='text' className='product-quantity' value={quantity} />
-				<button className='count' onClick={increaseQuantity}>
+				<input
+					min='0'
+					type='text'
+					className='product-quantity'
+					onChange={e => changeQuantityBy(parseInt(e.currentTarget.value))}
+					value={quantity}
+				/>
+				<button className='count' onClick={() => changeQuantityBy(1)}>
 					+
 				</button>
 			</div>

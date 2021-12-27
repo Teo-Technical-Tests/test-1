@@ -1,11 +1,14 @@
 import { useState } from "react"
 
-const useQuantityInput = (): [number, () => void, () => void] => {
+const useQuantityInput = (min: number, max?: number): [number, (value: number) => void] => {
 	const [quantity, setQuantity] = useState(0)
 
-	const increaseQuantity = (): void => setQuantity(prevQuantity => prevQuantity + 1)
-	const decreaseQuantity = (): void => setQuantity(prevQuantity => prevQuantity - 1)
+	const changeQuantityBy = (value: number): void => {
+		if (quantity + value < min) return
+		if (max && quantity + value > max) return
+		setQuantity(prevQuantity => prevQuantity + value)
+	}
 
-	return [quantity, increaseQuantity, decreaseQuantity]
+	return [quantity, changeQuantityBy]
 }
 export default useQuantityInput
