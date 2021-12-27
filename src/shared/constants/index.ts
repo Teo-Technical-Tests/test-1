@@ -4,8 +4,10 @@ interface ProductCodes {
 	[key: string]: string
 }
 
+//FIX: code duplication
 export const productCodes: ProductCodes = {
 	TSHIRT: "X7R2OPX",
+	SHIRT: "X7R2OPX",
 	MUG: "X2G2OPZ",
 	CAP: "X3W2OPY"
 }
