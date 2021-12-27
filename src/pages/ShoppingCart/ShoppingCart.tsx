@@ -1,14 +1,17 @@
+import { useContext } from "react"
 import OrderSummary from "../../components/OrderSummary/OrderSummary"
 import ProductList from "../../components/ProductList/ProductList"
 import products from "../../shared/constants/fakeapi"
-import Checkout from "../../shared/services/Checkout"
+import CheckoutContext, { CheckoutProvider } from "../../context"
 
-const co = new Checkout()
 const ShoppingCart = () => {
-	
+	const { cart, co } = useContext(CheckoutContext)
+
 	return (
 		<>
-			<ProductList products={products} />
+			<CheckoutProvider value={{ cart, co }}>
+				<ProductList products={cart.products} />
+			</CheckoutProvider>
 			<OrderSummary />
 		</>
 	)
