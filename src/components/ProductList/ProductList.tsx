@@ -1,9 +1,9 @@
-import { ProductType } from "../../shared/types"
+import { ProductInCart, ProductType } from "../../shared/types"
 import TableBody from "./TableBody"
 import TableHead from "./TableHead"
 
 interface Props {
-	products: ProductType[]
+	products: ProductInCart[]
 }
 
 const ProductList = ({ products }: Props) => {

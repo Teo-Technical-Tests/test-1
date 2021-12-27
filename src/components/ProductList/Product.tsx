@@ -1,9 +1,23 @@
-import { ProductType } from "../../shared/types"
+import { ProductInCart, ProductType } from "../../shared/types"
 import { getImage } from "../../shared/helpers"
 import useQuantityInput from "../../hooks/useQuantityInput"
+import { useContext } from "react"
+import CheckoutContext from "../../context"
+import { useForceUpdate } from "../../hooks/useForceUpdate"
+import Checkout from "../../shared/services/Checkout"
 
-const Product = ({ name, price, image, id }: ProductType) => {
-	const [quantity, changeQuantityBy] = useQuantityInput(0)
+interface Props {
+	product: ProductInCart
+	forceUpdate: () => void
+}
+
+const Product = ({ product, forceUpdate }: Props) => {
+	const { co } = useContext(CheckoutContext)
+	const { name, price, image, id, quantity, subtotal } = product
+	const handleInput = (callback: () => void) => {
+		callback()
+		forceUpdate()
+	}
 
 	return (
 		<li className='product row'>
@@ -17,17 +31,17 @@ const Product = ({ name, price, image, id }: ProductType) => {
 				</figure>
 			</div>
 			<div className='col-quantity'>
-				<button className='count' onClick={() => changeQuantityBy(-1)}>
+				<button className='count' onClick={() => -1}>
 					-
 				</button>
 				<input
 					min='0'
 					type='text'
 					className='product-quantity'
-					onChange={e => changeQuantityBy(parseInt(e.currentTarget.value))}
+					onChange={e => parseInt(e.currentTarget.value)}
 					value={quantity}
 				/>
-				<button className='count' onClick={() => changeQuantityBy(1)}>
+				<button className='count' onClick={() => handleInput(() => co.scan(name))}>
 					+
 				</button>
 			</div>
