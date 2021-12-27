@@ -1,19 +1,14 @@
-import { ProductType } from "../types"
+import { ProductType, ProductInCart } from "../types"
 import { getProduct } from "../constants/fakeapi"
 import { productCodes } from "../constants"
-
-interface ProductInCart extends ProductType {
-	quantity: number
-	subtotal: number
-}
+import { fakeFetchUserCart } from "./FakeFetchUserCart"
 
 class Checkout {
-	cart: ProductInCart[] = []
+	cart: ProductInCart[] = fakeFetchUserCart()
 
 	//utils
 	private addToCart(product: ProductType) {
-		const productFound = this.getItemFromCart(product.id)
-
+		const productFound = this.getItemFromCart(product.name.toUpperCase())
 		if (productFound) {
 			productFound.quantity++
 			productFound.subtotal = productFound.price * productFound.quantity
@@ -21,7 +16,7 @@ class Checkout {
 			this.cart.push({ ...product, quantity: 1, subtotal: product.price })
 		}
 	}
-	private removeFromCart(code: string) {
+	public removeFromCart(code: string) {
 		const productFound = this.getItemFromCart(code)
 
 		if (productFound) {
@@ -80,8 +75,8 @@ class Checkout {
 	}
 
 	public scan(code: string): this {
-		const product = getProduct(code)
-
+		const product = getProduct(code.toUpperCase())
+		console.log(this)
 		//TODO manage null return
 		if (product === null) {
 			console.error(`Product ${code} not found`)
@@ -89,7 +84,6 @@ class Checkout {
 		}
 
 		this.addToCart(product)
-		this.total()
 		return this
 	}
 
