@@ -8,16 +8,11 @@ import Checkout from "../../shared/services/Checkout"
 
 interface Props {
 	product: ProductInCart
-	forceUpdate: () => void
 }
 
-const Product = ({ product, forceUpdate }: Props) => {
-	const { co } = useContext(CheckoutContext)
+const Product = ({ product }: Props) => {
+	const { scan, unscan } = useContext(CheckoutContext)
 	const { name, price, image, id, quantity, subtotal } = product
-	const handleInput = (callback: () => void) => {
-		callback()
-		forceUpdate()
-	}
 
 	return (
 		<li className='product row'>
@@ -31,7 +26,7 @@ const Product = ({ product, forceUpdate }: Props) => {
 				</figure>
 			</div>
 			<div className='col-quantity'>
-				<button className='count' onClick={() => -1}>
+				<button className='count' onClick={() => unscan(name)}>
 					-
 				</button>
 				<input
@@ -41,7 +36,7 @@ const Product = ({ product, forceUpdate }: Props) => {
 					onChange={e => parseInt(e.currentTarget.value)}
 					value={quantity}
 				/>
-				<button className='count' onClick={() => handleInput(() => co.scan(name))}>
+				<button className='count' onClick={() => scan(name)}>
 					+
 				</button>
 			</div>

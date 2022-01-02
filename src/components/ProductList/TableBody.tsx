@@ -5,16 +5,14 @@ interface Props {
 	products: ProductInCart[]
 }
 
-const displayProducts = (products: ProductInCart[], forceUpdate: () => void): JSX.Element[] => {
+const displayProducts = (products: ProductInCart[]): JSX.Element[] => {
 	return products.map((product: ProductInCart) => {
-		return <Product key={product.id} product={product} forceUpdate={forceUpdate} />
+		return <Product key={product.id} product={product} />
 	})
 }
 
 const TableBody = ({ products }: Props) => {
-	//FIXME: remove necesity of forcing an update because of array reference not changing
-	const forceUpdate = useForceUpdate()
-	return <ul className='products-list'>{displayProducts(products, forceUpdate)}</ul>
+	return <ul className='products-list'>{displayProducts(products)}</ul>
 }
 
 export default TableBody
