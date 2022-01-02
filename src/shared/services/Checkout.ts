@@ -16,14 +16,14 @@ class Checkout {
 			this.cart.push({ ...product, quantity: 1, subtotal: product.price })
 		}
 	}
-	public removeFromCart(code: string) {
-		const productFound = this.getItemFromCart(code)
+	public unscan(code: string) {
+		const productFound = this.getItemFromCart(code.toUpperCase())
 
 		if (productFound) {
+			if (productFound?.quantity <= 0) return this
+
 			productFound.quantity--
 			productFound.subtotal = productFound.price * productFound.quantity
-		} else {
-			this.cart = this.cart.filter(p => p.id !== code)
 		}
 	}
 	private getItemFromCart(code: string): ProductInCart | null {
