@@ -87,6 +87,14 @@ class Checkout {
 		return this
 	}
 
+	get totalItems(): number {
+		return this.cart.reduce((acc, product) => acc + product.quantity, 0)
+	}
+
+	public totalWithoutDiscounts(): number {
+		return this.cart.reduce((acc, product) => acc + product.price * product.quantity, 0)
+	}
+
 	public total(): number {
 		return this.calcTotalWithDiscounts()
 	}
