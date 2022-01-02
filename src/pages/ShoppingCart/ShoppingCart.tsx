@@ -5,14 +5,14 @@ import products from "../../shared/constants/fakeapi"
 import CheckoutContext, { CheckoutProvider } from "../../context"
 
 const ShoppingCart = () => {
-	const { cart, co } = useContext(CheckoutContext)
+	const { cart } = useContext(CheckoutContext)
 
 	return (
 		<>
-			<CheckoutProvider value={{ cart, co }}>
+			<CheckoutProvider >
 				<ProductList products={cart.products} />
+				<OrderSummary />
 			</CheckoutProvider>
-			<OrderSummary />
 		</>
 	)
 }
