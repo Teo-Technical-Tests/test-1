@@ -2,7 +2,7 @@ import { ProductType, ProductInCart } from "../types"
 import { getProduct } from "../constants/fakeapi"
 import { productCodes } from "../constants"
 import { fakeFetchUserCart } from "./FakeFetchUserCart"
-
+import { toFixedFloat } from "../helpers"
 class Checkout {
 	cart: ProductInCart[] = fakeFetchUserCart()
 
@@ -11,21 +11,12 @@ class Checkout {
 		const productFound = this.getItemFromCart(product.name.toUpperCase())
 		if (productFound) {
 			productFound.quantity++
-			productFound.subtotal = productFound.price * productFound.quantity
+			productFound.subtotal = toFixedFloat(productFound.price * productFound.quantity, 2)
 		} else {
 			this.cart.push({ ...product, quantity: 1, subtotal: product.price })
 		}
 	}
-	public unscan(code: string) {
-		const productFound = this.getItemFromCart(code.toUpperCase())
 
-		if (productFound) {
-			if (productFound?.quantity <= 0) return this
-
-			productFound.quantity--
-			productFound.subtotal = productFound.price * productFound.quantity
-		}
-	}
 	private getItemFromCart(code: string): ProductInCart | null {
 		return this.cart.find(p => p.id === productCodes[code]) || null
 	}
@@ -37,19 +28,20 @@ class Checkout {
 		if (!shirts) return false
 		else return shirts.quantity >= 3
 	}
+
 	private hasMugDiscount(): boolean {
 		const mugs = this.getItemFromCart("MUG")
 		if (!mugs) return false
-		else return mugs.quantity % 2 === 0
+		else return mugs.quantity > 1
 	}
 
 	private applyShirtDiscount(): void {
 		const shirts = this.getItemFromCart("TSHIRT")
 
 		if (shirts && this.hasShirtDiscount()) {
-			shirts.subtotal *= 0.95
+			shirts.subtotal = toFixedFloat(shirts.price * 0.95 * shirts.quantity, 2)
 		} else if (shirts) {
-			shirts.subtotal = shirts.price * shirts.quantity
+			shirts.subtotal = toFixedFloat(shirts.price * shirts.quantity, 2)
 		}
 	}
 
@@ -58,9 +50,9 @@ class Checkout {
 
 		if (mugs && this.hasMugDiscount()) {
 			const discountQuantity = Math.floor(mugs.quantity / 2)
-			mugs.subtotal = mugs.price * (mugs.quantity - discountQuantity)
+			mugs.subtotal = toFixedFloat(mugs.price * mugs.quantity - mugs.price * discountQuantity, 2)
 		} else if (mugs) {
-			mugs.subtotal = mugs.price * mugs.quantity
+			mugs.subtotal = toFixedFloat(mugs.price * mugs.quantity, 2)
 		}
 	}
 
@@ -85,6 +77,17 @@ class Checkout {
 
 		this.addToCart(product)
 		return this
+	}
+
+	public unscan(code: string) {
+		const productFound = this.getItemFromCart(code.toUpperCase())
+
+		if (productFound) {
+			if (productFound?.quantity <= 0) return this
+
+			productFound.quantity--
+			productFound.subtotal = toFixedFloat(productFound.price * productFound.quantity, 2)
+		}
 	}
 
 	get totalItems(): number {
