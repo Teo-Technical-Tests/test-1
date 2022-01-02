@@ -90,6 +90,18 @@ class Checkout {
 		}
 	}
 
+	public getDiscounts(): { shirts: number; mugs: number } {
+		const shirts = this.getItemFromCart("TSHIRT")
+		const mugs = this.getItemFromCart("MUG")
+
+		const shirtDiscount = shirts && this.hasShirtDiscount() ? shirts.price * shirts?.quantity * 0.05 : 0
+		const mugDiscount = mugs && this.hasMugDiscount() ? mugs.price * Math.floor(mugs.quantity / 2) : 0
+		return {
+			shirts: shirtDiscount,
+			mugs: mugDiscount
+		}
+	}
+
 	get totalItems(): number {
 		return this.cart.reduce((acc, product) => acc + product.quantity, 0)
 	}
