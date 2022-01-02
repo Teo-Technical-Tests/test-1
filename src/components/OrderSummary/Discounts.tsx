@@ -1,17 +1,19 @@
-import React from "react"
-
+import { useContext } from "react"
+import CheckoutContext from "../../context"
 interface Props {}
 
 const Discounts = (props: Props) => {
+	const { getDiscounts } = useContext(CheckoutContext)
+
 	return (
 		<ul>
 			<li>
 				<span>2x1 Mug offer</span>
-				<span>-10€</span>
+				<span>-{getDiscounts().mugs}€</span>
 			</li>
 			<li>
 				<span>x3 Shirt offer</span>
-				<span>-3€</span>
+				<span>-{getDiscounts().shirts}€</span>
 			</li>
 			<li>
 				<span>Promo code</span>

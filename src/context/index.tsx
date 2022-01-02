@@ -8,13 +8,17 @@ interface CheckoutContext {
 	scan: (name: string) => void
 	unscan: (name: string) => void
 	totalItems: number
+	getDiscounts: () => { shirts: number; mugs: number }
 }
 
 const contextValue: CheckoutContext = {
 	cart: { products: co.cart, total: 0, totalWithoutDiscounts: 0 },
 	scan: (code: string) => {},
 	unscan: (code: string) => {},
-	totalItems: 0
+	totalItems: 0,
+	getDiscounts: () => {
+		return { shirts: 0, mugs: 0 }
+	}
 }
 
 export const CheckoutContext = createContext(contextValue)
@@ -37,7 +41,15 @@ export const CheckoutProvider = (props: any) => {
 	}
 
 	return (
-		<CheckoutContext.Provider value={{ cart, scan: scanHandler, unscan: unscanHandler, totalItems: co.totalItems }}>
+		<CheckoutContext.Provider
+			value={{
+				cart,
+				scan: scanHandler,
+				unscan: unscanHandler,
+				totalItems: co.totalItems,
+				getDiscounts: () => co.getDiscounts()
+			}}
+		>
 			{props.children}
 		</CheckoutContext.Provider>
 	)
