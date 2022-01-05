@@ -5,13 +5,20 @@ const products = [
 		id: "X7R2OPX",
 		price: 20,
 		name: "Shirt",
-		image: "shirt.png"
+		image: "shirt.png",
+		discount: {
+			type: "percentage",
+			value: 5
+		}
 	},
 	{
 		id: "X2G2OPZ",
 		price: 5,
 		name: "Mug",
-		image: "mug.png"
+		image: "mug.png",
+		discount: {
+			type: "2x1"
+		}
 	},
 	{
 		id: "X3W2OPY",

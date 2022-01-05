@@ -8,6 +8,10 @@ export type ProductType = {
 export interface ProductInCart extends ProductType {
 	quantity: number
 	subtotal: number
+	discount?: {
+		type: string
+		value?: number
+	}
 }
 
 export type CheckoutInitialState = {

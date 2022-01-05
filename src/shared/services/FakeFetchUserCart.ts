@@ -2,5 +2,5 @@ import products from "../constants/fakeapi"
 
 export const fakeFetchUserCart = () =>
 	products.map(product => {
-		return { ...product, quantity: 0, subtotal: 0 }
+		return { ...product, discount: product.discount, quantity: 0, subtotal: 0 }
 	})
