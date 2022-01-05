@@ -12,13 +12,13 @@ interface Props {
 
 const Product = ({ product }: Props) => {
 	const { scan, unscan } = useContext(CheckoutContext)
-	const { name, price, image, id, quantity, subtotal } = product
+	const { name, price, image, id, quantity } = product
 
 	return (
 		<li className='product row'>
 			<div className='col-product'>
 				<figure className='product-image'>
-					<img src={getImage(image)} alt='Shirt' />
+					<img src={getImage(image)} alt={name} />
 					<div className='product-description'>
 						<h1>{name}</h1>
 						<p className='product-code'>Product code {id}</p>
@@ -26,17 +26,20 @@ const Product = ({ product }: Props) => {
 				</figure>
 			</div>
 			<div className='col-quantity'>
-				<button className='count' onClick={() => unscan(name)}>
+				<button title='remove product' className='count' onClick={() => unscan(name)}>
 					-
 				</button>
-				<input
-					min='0'
-					type='text'
-					className='product-quantity'
-					onChange={e => parseInt(e.currentTarget.value)}
-					value={quantity}
-				/>
-				<button className='count' onClick={() => scan(name)}>
+				<label htmlFor='quantity'>
+					<input
+						id='quantity'
+						min='0'
+						type='text'
+						className='product-quantity'
+						onChange={e => parseInt(e.currentTarget.value)}
+						value={quantity}
+					/>
+				</label>
+				<button title='add product' className='count' onClick={() => scan(name)}>
 					+
 				</button>
 			</div>
