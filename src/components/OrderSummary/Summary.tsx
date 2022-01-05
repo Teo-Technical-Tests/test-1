@@ -1,14 +1,15 @@
 import React from "react"
 
 interface Props {
-	totalItems: number
+	getTotalItems: () => number
 	totalWithoutDiscounts: number
 }
 
-const Summary = ({ totalItems, totalWithoutDiscounts }: Props) => {
+const Summary = ({ getTotalItems, totalWithoutDiscounts }: Props) => {
+	const number = getTotalItems()
 	return (
 		<li>
-			<span className='summary-items-number'>{totalItems} Items</span>
+			<span className='summary-items-number'>{number} Items</span>
 			<span className='summary-items-price'>
 				{totalWithoutDiscounts}
 				<span className='currency'>€</span>
