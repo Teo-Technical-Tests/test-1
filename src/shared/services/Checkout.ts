@@ -68,7 +68,6 @@ class Checkout {
 
 	public scan(code: string): this {
 		const product = getProduct(code.toUpperCase())
-		console.log(this)
 		//TODO manage null return
 		if (product === null) {
 			console.error(`Product ${code} not found`)
@@ -88,6 +87,8 @@ class Checkout {
 			productFound.quantity--
 			productFound.subtotal = toFixedFloat(productFound.price * productFound.quantity, 2)
 		}
+
+		return this
 	}
 
 	public getDiscounts(): { shirts: number; mugs: number } {
@@ -102,11 +103,11 @@ class Checkout {
 		}
 	}
 
-	get totalItems(): number {
+	public getTotalItems(): number {
 		return this.cart.reduce((acc, product) => acc + product.quantity, 0)
 	}
 
-	public totalWithoutDiscounts(): number {
+	public calcTotalWithoutDiscounts(): number {
 		return this.cart.reduce((acc, product) => acc + product.price * product.quantity, 0)
 	}
 
