@@ -12,14 +12,17 @@ const addProductByRow = (component: any, row: number) => {
 const removeProductByRow = (component: any, row: number) => {
 	fireEvent.click(component.getAllByText("-")[row])
 }
+
 //INTEGRATION TESTING WITH REAL CHECKOUT PROVIDER
 describe("INTEGRATION TEST", () => {
 	describe("shows total items correctly when user ", () => {
+		let co: Checkout
 		let component: RenderResult
 		beforeEach(() => {
+			co = new Checkout()
 			component = render(
 				<MemoryRouter>
-					<App />
+					<App co={co} />
 				</MemoryRouter>
 			)
 		})
@@ -66,7 +69,7 @@ describe("INTEGRATION TEST", () => {
 			co = new Checkout()
 			component = render(
 				<MemoryRouter>
-					<App />
+					<App co={co} />
 				</MemoryRouter>
 			)
 		})
@@ -99,7 +102,7 @@ describe("INTEGRATION TEST", () => {
 			co = new Checkout()
 			component = render(
 				<MemoryRouter>
-					<App />
+					<App co={co} />
 				</MemoryRouter>
 			)
 		})
@@ -111,21 +114,18 @@ describe("INTEGRATION TEST", () => {
 
 		test("shirt added to cart", () => {
 			addProductByRow(component, 0)
-			co.scan("TSHIRT")
 			const totalCostSpan = screen.getByText(/Total Cost/i).nextSibling
 			expect(totalCostSpan?.textContent).toBe(`${co.total()}€`)
 		})
 
 		test("mug added to cart", () => {
 			addProductByRow(component, 1)
-			co.scan("MUG")
 			const totalCostSpan = screen.getByText(/Total Cost/i).nextSibling
 			expect(totalCostSpan?.textContent).toBe(`${co.total()}€`)
 		})
 
 		test("cap added to cart", () => {
 			addProductByRow(component, 2)
-			co.scan("CAP")
 			const totalCostSpan = screen.getByText(/Total Cost/i).nextSibling
 			expect(totalCostSpan?.textContent).toBe(`${co.total()}€`)
 		})
@@ -134,7 +134,6 @@ describe("INTEGRATION TEST", () => {
 			addProductByRow(component, 0)
 			addProductByRow(component, 0)
 			addProductByRow(component, 0)
-			co.scan("TSHIRT").scan("TSHIRT").scan("TSHIRT")
 			const totalCostSpan = screen.getByText(/Total Cost/i).nextSibling
 			expect(totalCostSpan?.textContent).toBe(`${co.total()}€`)
 		})
@@ -142,7 +141,6 @@ describe("INTEGRATION TEST", () => {
 		test("mugs are discounted", () => {
 			addProductByRow(component, 1)
 			addProductByRow(component, 1)
-			co.scan("MUG").scan("MUG")
 
 			const totalCostSpan = screen.getByText(/Total Cost/i).nextSibling
 			expect(totalCostSpan?.textContent).toBe(`${co.total()}€`)
@@ -153,7 +151,6 @@ describe("INTEGRATION TEST", () => {
 
 			for (let i = 0; i < random; i++) {
 				addProductByRow(component, 0)
-				co.scan("TSHIRT")
 			}
 
 			const totalCostSpan = screen.getByText(/Total Cost/i).nextSibling
@@ -167,13 +164,10 @@ describe("INTEGRATION TEST", () => {
 				const randomNumber = Math.random()
 				if (randomNumber < 0.33) {
 					addProductByRow(component, 0)
-					co.scan("TSHIRT")
 				} else if (randomNumber < 0.66) {
 					addProductByRow(component, 1)
-					co.scan("MUG")
 				} else {
 					addProductByRow(component, 2)
-					co.scan("CAP")
 				}
 			}
 
@@ -188,20 +182,16 @@ describe("INTEGRATION TEST", () => {
 				const randomNumber = Math.random()
 				if (randomNumber < 0.33) {
 					addProductByRow(component, 0)
-					co.scan("TSHIRT")
 				} else if (randomNumber < 0.66) {
 					addProductByRow(component, 1)
-					co.scan("MUG")
 				} else {
 					addProductByRow(component, 2)
-					co.scan("CAP")
 				}
 			}
 
 			removeProductByRow(component, 0)
 			removeProductByRow(component, 1)
 			removeProductByRow(component, 2)
-			co.unscan("TSHIRT").unscan("MUG").unscan("CAP")
 
 			const totalCostSpan = screen.getByText(/Total Cost/i).nextSibling
 			expect(totalCostSpan?.textContent).toBe(`${co.total()}€`)
