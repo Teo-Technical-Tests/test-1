@@ -3,12 +3,16 @@ import OrderSummary from "../../components/OrderSummary/OrderSummary"
 import ProductList from "../../components/ProductList/ProductList"
 import CheckoutContext from "../../context"
 
-const ShoppingCart = () => {
+interface Props {
+	openModal: () => void
+}
+
+const ShoppingCart = ({ openModal }: Props) => {
 	const { cart } = useContext(CheckoutContext)
 
 	return (
 		<>
-			<ProductList products={cart.products} />
+			<ProductList openModal={openModal} products={cart.products} />
 			<OrderSummary />
 		</>
 	)

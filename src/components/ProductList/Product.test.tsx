@@ -34,7 +34,7 @@ describe("Each product row  ", () => {
 		render(
 			<MemoryRouter>
 				<CheckoutProviderWrapper co={co}>
-					<Product product={product} />
+					<Product openModal={() => {}} product={product} />
 				</CheckoutProviderWrapper>
 			</MemoryRouter>
 		)

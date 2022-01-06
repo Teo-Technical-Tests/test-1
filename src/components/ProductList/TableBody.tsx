@@ -1,18 +1,18 @@
 import Product from "./Product"
-import { ProductInCart, ProductType } from "../../shared/types"
-import { useForceUpdate } from "../../hooks/useForceUpdate"
+import { ProductInCart } from "../../types"
 interface Props {
 	products: ProductInCart[]
+	openModal: () => void
 }
 
-const displayProducts = (products: ProductInCart[]): JSX.Element[] => {
+const displayProducts = ({ products, openModal }: Props): JSX.Element[] => {
 	return products.map((product: ProductInCart) => {
-		return <Product key={product.id} product={product} />
+		return <Product key={product.id} product={product} openModal={openModal} />
 	})
 }
 
-const TableBody = ({ products }: Props) => {
-	return <ul className='products-list'>{displayProducts(products)}</ul>
+const TableBody = (props: Props) => {
+	return <ul className='products-list'>{displayProducts(props)}</ul>
 }
 
 export default TableBody

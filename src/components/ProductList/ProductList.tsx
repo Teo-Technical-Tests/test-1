@@ -1,17 +1,18 @@
-import { ProductInCart, ProductType } from "../../shared/types"
+import { ProductInCart, ProductType } from "../../types"
 import TableBody from "./TableBody"
 import TableHead from "./TableHead"
 
 interface Props {
 	products: ProductInCart[]
+	openModal: () => void
 }
 
-const ProductList = ({ products }: Props) => {
+const ProductList = ({ products, openModal }: Props) => {
 	return (
 		<section className='products'>
 			<h1 className='main'>Shopping cart</h1>
 			<TableHead />
-			<TableBody products={products} />
+			<TableBody openModal={openModal} products={products} />
 		</section>
 	)
 }
