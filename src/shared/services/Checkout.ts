@@ -1,9 +1,10 @@
-import { ProductType, ProductInCart } from "../types"
+import { ProductType, ProductInCart } from "../../types"
 import { getProduct } from "../constants/fakeapi"
 import { productCodes } from "../constants"
 import { fakeFetchUserCart } from "./FakeFetchUserCart"
 import { toFixedFloat } from "../helpers"
 
+//Comment: more of a helper class than a service
 class Checkout {
 	cart: ProductInCart[] = fakeFetchUserCart()
 
@@ -12,7 +13,6 @@ class Checkout {
 		const productFound = this.getItemFromCart(product.name.toUpperCase())
 		if (productFound) {
 			productFound.quantity++
-			productFound.subtotal = toFixedFloat(productFound.price * productFound.quantity, 2)
 		} else {
 			this.cart.push({ ...product, quantity: 1, subtotal: product.price })
 		}
@@ -22,20 +22,34 @@ class Checkout {
 		return this.cart.find(p => p.id === productCodes[code]) || null
 	}
 
-	//TODO scale for Type of discount instead of item
-	//Discounts:
 	private hasDiscount(product: ProductInCart): boolean {
-		return !!product.discount
+		const { discount, quantity } = product
+
+		if (!discount) return false
+		else {
+			switch (product.discount?.type) {
+				case "percentage":
+				case "2x1":
+					return discount.minQuantity ? product.quantity >= discount?.minQuantity : false
+				default:
+					return false
+			}
+		}
 	}
 
-	private applyDiscount = (type: string = "none", price: number, quantity: number, percentage: number = 0) => {
+	private calcDiscount = (product: ProductInCart) => {
+		const { price, quantity } = product
+		if (!product.discount) return price * quantity
+
+		const { type = "none", value = 0 } = product.discount
+
 		switch (type) {
 			case "2x1":
-				const unpaired = (quantity %= 2)
-				return toFixedFloat((price * quantity) / 2 + price * unpaired, 2)
+				const unpaired = quantity % 2 ? 1 : 0
+				const paires = (quantity - unpaired) / 2
+				return toFixedFloat(paires * price + unpaired * price, 2)
 			case "percentage":
-				return toFixedFloat(price * (100 - percentage / 100), 2)
-			case "none":
+				return toFixedFloat((price * quantity * (100 - value)) / 100, 2)
 			default:
 				return price
 		}
@@ -44,12 +58,7 @@ class Checkout {
 	private applyDiscounts(): void {
 		this.cart.forEach(product => {
 			if (this.hasDiscount(product)) {
-				product.subtotal = this.applyDiscount(
-					product.discount?.type,
-					product.price,
-					product.quantity,
-					product.discount?.value
-				)
+				product.subtotal = this.calcDiscount(product)
 			} else {
 				product.subtotal = product.price * product.quantity
 			}
