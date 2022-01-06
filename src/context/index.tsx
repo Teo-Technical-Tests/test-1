@@ -1,6 +1,5 @@
-import React, { useState, useEffect, createContext } from "react"
-import Checkout from "../shared/services/Checkout"
-import { ProductInCart, ProductType } from "../shared/types"
+import { useState, useEffect, createContext } from "react"
+import { ProductInCart } from "../types"
 
 interface CheckoutContext {
 	cart: { products: ProductInCart[]; total: number; totalWithoutDiscounts: number }
