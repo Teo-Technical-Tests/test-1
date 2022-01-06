@@ -3,6 +3,7 @@ export type ProductType = {
 	price: number
 	image: string
 	name: string
+	description: string
 }
 
 export interface ProductInCart extends ProductType {
@@ -11,6 +12,7 @@ export interface ProductInCart extends ProductType {
 	discount?: {
 		type: string
 		value?: number
+		minQuantity?: number
 	}
 }
 
