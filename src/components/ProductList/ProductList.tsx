@@ -4,7 +4,7 @@ import TableHead from "./TableHead"
 
 interface Props {
 	products: ProductInCart[]
-	openModal: () => void
+	openModal: (product: ProductInCart) => void
 }
 
 const ProductList = ({ products, openModal }: Props) => {

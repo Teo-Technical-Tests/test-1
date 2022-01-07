@@ -5,7 +5,7 @@ import CheckoutContext from "../../context"
 
 interface Props {
 	product: ProductInCart
-	openModal: () => void
+	openModal: (product: ProductInCart) => void
 }
 
 const Product = ({ product, openModal }: Props) => {
@@ -15,7 +15,7 @@ const Product = ({ product, openModal }: Props) => {
 	return (
 		<li className='product row'>
 			<div className='col-product'>
-				<figure onClick={openModal} className='product-image'>
+				<figure onClick={() => openModal(product)} className='product-image'>
 					<img src={getImage(image)} alt={name} />
 					<div className='product-description'>
 						<h1>{name}</h1>

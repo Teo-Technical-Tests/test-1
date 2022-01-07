@@ -2,9 +2,10 @@ import { useContext } from "react"
 import OrderSummary from "../../OrderSummary/OrderSummary"
 import ProductList from "../../ProductList/ProductList"
 import CheckoutContext from "../../../context"
+import { ProductInCart } from "../../../types"
 
 interface Props {
-	openModal: () => void
+	openModal: (product: ProductInCart) => void
 }
 
 const ShoppingCart = ({ openModal }: Props) => {

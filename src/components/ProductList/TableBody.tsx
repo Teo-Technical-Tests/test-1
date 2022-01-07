@@ -2,7 +2,7 @@ import Product from "./Product"
 import { ProductInCart } from "../../types"
 interface Props {
 	products: ProductInCart[]
-	openModal: () => void
+	openModal: (product: ProductInCart) => void
 }
 
 const displayProducts = ({ products, openModal }: Props): JSX.Element[] => {
