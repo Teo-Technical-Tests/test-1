@@ -1,6 +1,5 @@
 import { useContext } from "react"
 import { CheckoutContext } from "../../context"
-import { ModalContext } from "../../context/Modal"
 import { getImage } from "../../shared/helpers"
 import { ProductType } from "../../types"
 import "./Modal.css"
@@ -10,10 +9,11 @@ interface Props {
 	onClose: () => void
 }
 
-export const ProductModal = ({ product: { image, name, price, id, description }, onClose }: Props) => {
+export const ProductModal = ({ product, onClose }: Props) => {
+	const { image, name, price, id, description } = product
 	const { scan } = useContext(CheckoutContext)
-	const onSubmit = async () => {
-		await scan(name)
+	const onSubmit = () => {
+		scan(name)
 		onClose()
 	}
 
@@ -22,6 +22,7 @@ export const ProductModal = ({ product: { image, name, price, id, description },
 			<div className='image'>
 				<img src={getImage(image)}></img>
 			</div>
+
 			<div className='details'>
 				<button className='button-close' onClick={onClose}>
 					<svg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'>

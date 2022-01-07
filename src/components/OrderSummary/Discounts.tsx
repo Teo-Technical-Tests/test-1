@@ -1,8 +1,7 @@
 import { useContext } from "react"
 import CheckoutContext from "../../context"
-interface Props {}
 
-const Discounts = (props: Props) => {
+const Discounts = () => {
 	const { getDiscounts } = useContext(CheckoutContext)
 
 	return (

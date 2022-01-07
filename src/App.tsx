@@ -1,7 +1,7 @@
 import "./App.css"
 import { useState } from "react"
 import { Routes, Route } from "react-router-dom"
-import ShoppingCart from "./pages/ShoppingCart/ShoppingCart"
+import ShoppingCart from "./components/pages/ShoppingCart/ShoppingCart"
 import Checkout from "./shared/services/Checkout"
 import { CheckoutProviderWrapper } from "./context"
 import { ProductModal } from "./components/Modals"

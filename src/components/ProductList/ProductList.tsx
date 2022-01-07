@@ -1,4 +1,4 @@
-import { ProductInCart, ProductType } from "../../types"
+import { ProductInCart } from "../../types"
 import TableBody from "./TableBody"
 import TableHead from "./TableHead"
 

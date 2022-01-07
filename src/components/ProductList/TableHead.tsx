@@ -1,8 +1,4 @@
-import React from "react"
-
-interface Props {}
-
-const TableHead = (props: Props) => {
+const TableHead = () => {
 	return (
 		<ul className='products-list tableHead'>
 			<li className='products-list-title row'>

@@ -1,7 +1,7 @@
 import { useContext } from "react"
-import OrderSummary from "../../components/OrderSummary/OrderSummary"
-import ProductList from "../../components/ProductList/ProductList"
-import CheckoutContext from "../../context"
+import OrderSummary from "../../OrderSummary/OrderSummary"
+import ProductList from "../../ProductList/ProductList"
+import CheckoutContext from "../../../context"
 
 interface Props {
 	openModal: () => void

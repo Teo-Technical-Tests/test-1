@@ -1,6 +1,7 @@
 import { productCodes } from "."
 import { ProductType } from "../../types"
 
+//MOCK DATA
 const products = [
 	{
 		id: "X7R2OPX",
