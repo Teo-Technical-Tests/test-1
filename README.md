@@ -1,5 +1,38 @@
 # Cabify Challenge
 
+<hr>
+## How to start the project
+
+Prerequisites:
+Having [nodejs](https://nodejs.org/es/) installed.
+In order to create an image for deploy [docker](https://docs.docker.com/engine/install/) is also needed.
+
+### Running the project.
+
+Execute this commands at root level and open localhost:3000 in your browser.
+
+```shell
+   npm install
+   npm start
+```
+
+### Building and running a docker image.
+
+Execute this commands and open localhost:3000 in your browser.
+
+```shell
+   docker build --pull --rm -f "Dockerfile" -t cabify:latest "."
+   docker run --rm -d  -p 3000:3000/tcp cabify:latest
+```
+
+Or alternatively
+
+```shell
+   npm run start:docker
+```
+
+<hr>
+
 We welcome you to the first step in your hiring process at Cabify (Yayyy! :tada:). Being here means that you've already had a conversation with one of our hiring managers, so you know that this is the step in the middle before going to the actual interview.
 
 That last process will give us an idea of how it would be working with you, but first we want to make sure that you have the technical skills needed to work here, and we think the following challenge is great for that.
