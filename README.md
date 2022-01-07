@@ -1,6 +1,7 @@
 # Cabify Challenge
 
 <hr>
+
 ## How to start the project
 
 Prerequisites:
@@ -12,8 +13,8 @@ In order to create an image for deploy [docker](https://docs.docker.com/engine/i
 Execute this commands at root level and open localhost:3000 in your browser.
 
 ```shell
-   npm install
-   npm start
+   $ npm install
+   $ npm start
 ```
 
 ### Building and running a docker image.
@@ -21,14 +22,14 @@ Execute this commands at root level and open localhost:3000 in your browser.
 Execute this commands and open localhost:3000 in your browser.
 
 ```shell
-   docker build --pull --rm -f "Dockerfile" -t cabify:latest "."
-   docker run --rm -d  -p 3000:3000/tcp cabify:latest
+   $ docker build --pull --rm -f "Dockerfile" -t cabify:latest "."
+   $ docker run --rm -d  -p 3000:3000/tcp cabify:latest
 ```
 
 Or alternatively
 
 ```shell
-   npm run start:docker
+   $ npm run start:docker
 ```
 
 <hr>
