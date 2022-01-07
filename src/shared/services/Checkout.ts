@@ -102,8 +102,8 @@ class Checkout {
 		const shirtDiscount = shirts?.discount ? shirts.price * shirts?.quantity * 0.05 : 0
 		const mugDiscount = mugs?.discount ? mugs.price * Math.floor(mugs.quantity / 2) : 0
 		return {
-			shirts: shirtDiscount,
-			mugs: mugDiscount
+			shirts: shirts && this.hasDiscount(shirts) ? shirtDiscount : 0,
+			mugs: mugs && this.hasDiscount(mugs) ? mugDiscount : 0
 		}
 	}
 
