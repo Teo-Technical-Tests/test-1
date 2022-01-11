@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { ProductInCart } from "../../types"
 import { getImage } from "../../shared/helpers"
 import { useContext } from "react"
@@ -10,26 +10,29 @@ interface Props {
 }
 
 const Product = ({ product, openModal }: Props) => {
-	const { scan, unscan, getTotalItems } = useContext(CheckoutContext)
+	const { scan, unscan, emptyProduct } = useContext(CheckoutContext)
 	const [quantity, setQuantity] = useState(product.quantity)
 	const { name, price, image, id } = product
 
+	useEffect(() => {
+		setQuantity(product.quantity)
+	}, [product.quantity])
+
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setQuantity(prevQuantity => {
-			console.log(e)
+		if (e.target.value === "") {
+			console.log(quantity, name)
+			emptyProduct(name)
+		}
 
-			if (parseInt(e.target.value) - prevQuantity > 0) {
-				for (let i = 0; i < parseInt(e.target.value) - prevQuantity; i++) {
-					scan(name)
-				}
-			} else if (parseInt(e.target.value) - prevQuantity < 0) {
-				for (let i = 0; i < prevQuantity - parseInt(e.target.value); i++) {
-					unscan(name)
-				}
+		if (parseInt(e.target.value) - quantity > 0) {
+			for (let i = 0; i < parseInt(e.target.value) - quantity; i++) {
+				scan(name)
 			}
-
-			return parseInt(e.target.value || "0")
-		})
+		} else if (parseInt(e.target.value) - quantity < 0) {
+			for (let i = 0; i < quantity - parseInt(e.target.value); i++) {
+				unscan(name)
+			}
+		}
 	}
 
 	return (

@@ -1,4 +1,5 @@
 import { useState, useEffect, createContext } from "react"
+import Checkout from "../shared/services/Checkout"
 import { ProductInCart } from "../types"
 
 interface CheckoutContext {
@@ -7,6 +8,7 @@ interface CheckoutContext {
 	unscan: (name: string) => void
 	getTotalItems: () => number
 	getDiscounts: () => { shirts: number; mugs: number }
+	emptyProduct: (code: string) => void
 }
 
 const contextValue: CheckoutContext = {
@@ -16,12 +18,13 @@ const contextValue: CheckoutContext = {
 	getTotalItems: () => 0,
 	getDiscounts: () => {
 		return { shirts: 0, mugs: 0 }
-	}
+	},
+	emptyProduct: (code: string) => {}
 }
 
 export const CheckoutContext = createContext(contextValue)
 
-export const CheckoutProviderWrapper = ({ co, children }: any) => {
+export const CheckoutProviderWrapper = ({ co = new Checkout(), children }: any) => {
 	const [cart, setCart] = useState({
 		products: co.cart,
 		total: 0,
@@ -48,18 +51,20 @@ export const CheckoutProviderWrapper = ({ co, children }: any) => {
 		refreshCart()
 	}
 
-	return (
-		<CheckoutContext.Provider
-			value={{
-				cart,
-				scan: scanHandler,
-				unscan: unscanHandler,
-				getTotalItems: () => co.getTotalItems(),
-				getDiscounts: () => co.getDiscounts()
-			}}
-		>
-			{children}
-		</CheckoutContext.Provider>
-	)
+	const emptyProductHandler = (code: string) => {
+		co.emptyProduct(code)
+		refreshCart()
+	}
+
+	const contextValue = {
+		cart,
+		scan: scanHandler,
+		unscan: unscanHandler,
+		getTotalItems: () => co.getTotalItems(),
+		getDiscounts: () => co.getDiscounts(),
+		emptyProduct: emptyProductHandler
+	}
+
+	return <CheckoutContext.Provider value={contextValue}>{children}</CheckoutContext.Provider>
 }
 export default CheckoutContext

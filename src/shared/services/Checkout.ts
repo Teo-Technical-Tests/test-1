@@ -95,6 +95,17 @@ class Checkout {
 		return this
 	}
 
+	public emptyProduct(code: string) {
+		console.log(code)
+		const product = this.getItemFromCart(code.toUpperCase())
+		console.log(product)
+		if (product) product.quantity = 0
+	}
+
+	public emptyCart() {
+		this.cart.forEach(product => (product.quantity = 0))
+	}
+
 	public getDiscounts(): { shirts: number; mugs: number } {
 		const shirts = this.getItemFromCart("TSHIRT")
 		const mugs = this.getItemFromCart("MUG")
