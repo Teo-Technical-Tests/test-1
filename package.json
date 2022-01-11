@@ -2,6 +2,7 @@
   "name": "cabify",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://teo-technical-tests.github.io/test-1",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
@@ -22,8 +23,7 @@
     "build": "react-scripts build",
     "start:docker": "docker build --pull --rm -f 'Dockerfile' -t cabify:latest '.'; docker run --rm -d  -p 3000:3000/tcp cabify:latest",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "homepage": "https://teo-technical-tests.github.io/test-1"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

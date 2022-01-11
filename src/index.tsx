@@ -9,7 +9,7 @@ import Checkout from "./shared/services/Checkout"
 const co = new Checkout()
 ReactDOM.render(
 	<React.StrictMode>
-		<BrowserRouter>
+		<BrowserRouter basename='/test-1'>
 			<App co={co} />
 		</BrowserRouter>
 	</React.StrictMode>,
