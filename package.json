@@ -22,7 +22,8 @@
     "build": "react-scripts build",
     "start:docker": "docker build --pull --rm -f 'Dockerfile' -t cabify:latest '.'; docker run --rm -d  -p 3000:3000/tcp cabify:latest",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "homepage": "https://teo-technical-tests.github.io/test-1"
   },
   "eslintConfig": {
     "extends": [
