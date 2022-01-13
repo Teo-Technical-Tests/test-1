@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { ProductInCart } from "../../types"
 import { getImage } from "../../shared/helpers"
 import { useContext } from "react"
-import CheckoutContext from "../../context"
+import CheckoutContext from "../../context/Checkout"
 
 interface Props {
 	product: ProductInCart

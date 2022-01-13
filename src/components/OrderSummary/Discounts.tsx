@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import CheckoutContext from "../../context"
+import CheckoutContext from "../../context/Checkout"
 
 const Discounts = () => {
 	const { getDiscounts } = useContext(CheckoutContext)

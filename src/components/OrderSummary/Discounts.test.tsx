@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react"
 import Discounts from "./Discounts"
-import { CheckoutProviderWrapper } from "../../context"
+import { CheckoutProviderWrapper } from "../../context/Checkout"
 import { MemoryRouter } from "react-router"
-import Checkout from "../../shared/services/Checkout"
+import Checkout from "../../services/Checkout"
 
 describe("shows discounts correctly when ", () => {
 	let co: Checkout

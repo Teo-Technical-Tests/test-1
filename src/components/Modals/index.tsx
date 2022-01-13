@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { CheckoutContext } from "../../context"
+import { CheckoutContext } from "../../context/Checkout"
 import { getImage } from "../../shared/helpers"
 import { ProductType } from "../../types"
 import "./Modal.css"
@@ -20,7 +20,7 @@ export const ProductModal = ({ product, onClose }: Props) => {
 	return (
 		<div className='modal-wrapper row'>
 			<div className='image'>
-				<img src={getImage(image)}></img>
+				<img src={getImage(image)} alt={name}></img>
 			</div>
 
 			<div className='details'>

@@ -1,17 +1,9 @@
 import { useState, useEffect, createContext } from "react"
-import Checkout from "../shared/services/Checkout"
+import Checkout from "../services/Checkout"
 import { ProductInCart } from "../types"
+import { ICheckoutContext } from "../types"
 
-interface CheckoutContext {
-	cart: { products: ProductInCart[]; total: number; totalWithoutDiscounts: number }
-	scan: (name: string) => void
-	unscan: (name: string) => void
-	getTotalItems: () => number
-	getDiscounts: () => { shirts: number; mugs: number }
-	emptyProduct: (code: string) => void
-}
-
-const contextValue: CheckoutContext = {
+const contextValue: ICheckoutContext = {
 	cart: { products: [], total: 0, totalWithoutDiscounts: 0 },
 	scan: (code: string) => {},
 	unscan: (code: string) => {},

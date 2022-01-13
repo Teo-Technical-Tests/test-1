@@ -1,4 +1,4 @@
-import products from "../constants/fakeapi"
+import products from "../shared/constants/fakeapi"
 
 export const fakeFetchUserCart = () =>
 	products.map(product => {

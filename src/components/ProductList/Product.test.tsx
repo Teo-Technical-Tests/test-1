@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, RenderResult } from "@testing-library/react"
-import { CheckoutProviderWrapper } from "../../context"
+import { CheckoutProviderWrapper } from "../../context/Checkout"
 import { MemoryRouter } from "react-router"
-import Checkout from "../../shared/services/Checkout"
+import Checkout from "../../services/Checkout"
 import Product from "./Product"
 
 describe("Each product row  ", () => {

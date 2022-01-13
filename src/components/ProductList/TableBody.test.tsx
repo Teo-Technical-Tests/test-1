@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react"
-import { CheckoutProviderWrapper } from "../../context"
+import { CheckoutProviderWrapper } from "../../context/Checkout"
 import { MemoryRouter } from "react-router"
-import Checkout from "../../shared/services/Checkout"
+import Checkout from "../../services/Checkout"
 import TableBody from "./TableBody"
 import { ProductInCart } from "../../types"
 

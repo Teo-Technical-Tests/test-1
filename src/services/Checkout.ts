@@ -1,8 +1,8 @@
-import { ProductType, ProductInCart } from "../../types"
-import { getProduct } from "../constants/fakeapi"
-import { productCodes } from "../constants"
+import { ProductType, ProductInCart } from "../types"
+import { getProduct } from "../shared/constants/fakeapi"
+import { productCodes } from "../shared/constants"
 import { fakeFetchUserCart } from "./FakeFetchUserCart"
-import { toFixedFloat } from "../helpers"
+import { toFixedFloat } from "../shared/helpers"
 
 //Comment: more of a helper class than a service
 class Checkout {
@@ -23,7 +23,7 @@ class Checkout {
 	}
 
 	private hasDiscount(product: ProductInCart): boolean {
-		const { discount, quantity } = product
+		const { discount } = product
 
 		if (!discount) return false
 		else {

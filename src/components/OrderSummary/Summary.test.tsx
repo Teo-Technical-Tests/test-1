@@ -1,8 +1,8 @@
 import { render, RenderResult, screen } from "@testing-library/react"
 import Summary from "./Summary"
-import { CheckoutProviderWrapper } from "../../context"
+import { CheckoutProviderWrapper } from "../../context/Checkout"
 import { MemoryRouter } from "react-router"
-import Checkout from "../../shared/services/Checkout"
+import Checkout from "../../services/Checkout"
 
 //TESTING UTILS
 let pickRandomProduct = () => {

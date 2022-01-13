@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import OrderSummary from "../../OrderSummary/OrderSummary"
 import ProductList from "../../ProductList/ProductList"
-import CheckoutContext from "../../../context"
+import CheckoutContext from "../../../context/Checkout"
 import { ProductInCart } from "../../../types"
 
 interface Props {

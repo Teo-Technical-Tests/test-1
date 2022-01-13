@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import CheckoutContext from "../../context"
+import CheckoutContext from "../../context/Checkout"
 import Discounts from "./Discounts"
 import Summary from "./Summary"
 

@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, RenderResult } from "@testing-library/react"
 import App from "./App"
 import { MemoryRouter } from "react-router"
-import Checkout from "./shared/services/Checkout"
+import Checkout from "./services/Checkout"
 
 //TESTING UTILS
 
