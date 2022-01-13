@@ -27,7 +27,7 @@ function App({ co }: { co: Checkout }) {
 						<ProductModal product={modalInfo.product} onClose={() => closeModal()} />
 					)}
 					<Routes>
-						<Route path='/' element={<ShoppingCart openModal={openModal} />} />
+						<Route path='' element={<ShoppingCart openModal={openModal} />} />
 					</Routes>
 				</CheckoutProviderWrapper>
 			</main>

@@ -1,15 +1,13 @@
-interface Props {
-	getTotalItems: () => number
-	totalWithoutDiscounts: number
-}
+import { useContext } from "react"
+import CheckoutContext from "../../context"
 
-const Summary = ({ getTotalItems, totalWithoutDiscounts }: Props) => {
-	const number = getTotalItems()
+const Summary = () => {
+	const { cart, getTotalItems } = useContext(CheckoutContext)
 	return (
 		<li>
-			<span className='summary-items-number'>{number} Items</span>
+			<span className='summary-items-number'>{getTotalItems()} Items</span>
 			<span className='summary-items-price'>
-				{totalWithoutDiscounts}
+				{cart.totalWithoutDiscounts}
 				<span className='currency'>€</span>
 			</span>
 		</li>

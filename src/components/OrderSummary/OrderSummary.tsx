@@ -4,13 +4,13 @@ import Discounts from "./Discounts"
 import Summary from "./Summary"
 
 const OrderSummary = () => {
-	const { cart, getTotalItems } = useContext(CheckoutContext)
+	const { cart } = useContext(CheckoutContext)
 
 	return (
 		<aside className='summary'>
 			<h1 className='main'>Order Summary</h1>
 			<ul className='summary-items wrapper border'>
-				<Summary getTotalItems={getTotalItems} totalWithoutDiscounts={cart.totalWithoutDiscounts} />
+				<Summary />
 			</ul>
 
 			<div className='summary-discounts wrapper-half border'>
